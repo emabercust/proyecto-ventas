@@ -156,3 +156,5 @@ REST_FRAMEWORK = {
          "rest_framework.permissions.AllowAny",
     ),
 }
+
+print("DATABASE_URL:", os.environ.get("DATABASE_URL"))

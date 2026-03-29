@@ -16,16 +16,6 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
 
-// 🔹 Carga inicial
-  useEffect(() => {
-    fetchCategories();
-    fetchProducts();
-  }, []); 
-
-  // 🔹 Se ejecuta cuando cambia búsqueda o categoría
-  useEffect(() => {
-    fetchProducts();
-  }, [selectedCategory, searchQuery]);
 
    // Categorías
   const fetchCategories = async () => {
@@ -58,6 +48,17 @@ const HomePage = () => {
     }
   },[selectedCategory, searchQuery]);
 
+  
+// 🔹 Carga inicial
+  useEffect(() => {
+    fetchCategories();
+  }, []); 
+
+  // 🔹 Se ejecuta cuando cambia búsqueda o categoría
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+  
   return (
     <div className="min-h-screen bg-background">
       <Header />

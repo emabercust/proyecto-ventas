@@ -17,10 +17,6 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1); // quantity, cantidad elegida por el usuario
   const [loading, setLoading] = useState(true); // loading, muestra "Cargando..." mientras pide datos
 
-  //useEffect → pedir el producto al backend
-  useEffect(() => {
-    fetchProduct();
-  }, [fetchProduct]);
   
   //fetchProduct → llamada a Django
   const fetchProduct = useCallback( async () => {
@@ -37,6 +33,12 @@ const ProductDetailPage = () => {
     }
   }, [id, navigate]);
 
+  
+  //useEffect → pedir el producto al backend
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+  
   //Agregar al carrito. Esto es igual que ProductCard PERO ahora con cantidad.
   const handleAddToCart = () => {
     addToCart(product, quantity);

@@ -6,6 +6,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { useDropzone } from 'react-dropzone';
+import api from '../../utils/api';
 
 const ProductsAdmin = () => {
   const [products, setProducts] = useState([]);

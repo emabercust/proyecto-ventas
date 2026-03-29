@@ -30,7 +30,9 @@ router.register(r'categorias', CategoriaViewSet, basename='categorias')
 router.register(r'ejemplo', EjemploViewSet)
  
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+
 
     #Crear endpoint de autenticación
     path('api/auth/', include('users.urls')),

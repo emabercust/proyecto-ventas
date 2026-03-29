@@ -1,0 +1,78 @@
+/*Descargás fuentes desde Google Fonts*/
+/*✔ No es Tailwind, es CSS puro*/
+/*✔ Luego se usa en body y h1..h6*/
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+/*Directivas Tailwind*/
+
+/*reset CSS + estilos base*/
+@tailwind base;
+
+/*componentes reutilizables*/
+@tailwind components;
+
+/*clases tipo bg-, text-, p-4, etc*/
+@tailwind utilities;
+
+@layer base { /*Variables CSS globales*/
+  :root { /*:root → guarda colores*/
+    --background: 43 40% 99%; /* color de fondo principal*/
+    --foreground: 222 47% 11%; /*color del texto principal*/
+    --primary: 222 47% 11%;
+    --primary-foreground: 43 40% 99%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --accent: 36 38% 63%;
+    --accent-foreground: 222 47% 11%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 47% 11%;
+    --radius: 0rem;
+  }
+} /* 43 40% 99% NO es un color todavía. Es solo: HSL*/
+   /*Tailwind después lo convierte en: hsl(var(--background))*/
+
+@layer base { /*Aplicación global de estilos*/
+  * { /*todos los bordes se ven iguales*/
+    /*border-border es una clase de Tailwind, NO CSS puro.
+      Tailwind la traduce a esto: 
+      border-color: hsl(var(--border));*/
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Manrope', sans-serif;
+    /*fondo = background
+      texto = foreground
+      fuente = Manrope
+      Esto explica por qué toda la app arranca con fondo claro y texto oscuro*/
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    /*Títulos con fuente elegante
+      Texto común con fuente legible*/
+  }
+}
+
+/*No tiene relación con Tailwind. Es solo para smooth scrolling (Lenis)*/
+html.lenis { /*scroll suave*/
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}

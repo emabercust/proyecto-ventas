@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useCallback, useState, useEffect } from 'react';
 import { Search, Filter } from 'lucide-react'; //Importa íconos SVG (carrito y usuario) desde la librería lucide-react.
 import { motion } from 'framer-motion'; //Importa motion, que permite animaciones en componentes React.
 import Header from '../components/Header';

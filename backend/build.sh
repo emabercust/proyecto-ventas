@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "📁 Entrando a backend/config..."
-cd backend/config || exit
+cd config || exit
 
 echo "📦 Instalando dependencias..."
 pip install -r ../requirements.txt

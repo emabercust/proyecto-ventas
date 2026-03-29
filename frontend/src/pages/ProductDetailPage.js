@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, Minus } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -20,10 +20,10 @@ const ProductDetailPage = () => {
   //useEffect → pedir el producto al backend
   useEffect(() => {
     fetchProduct();
-  }, [id]);
+  }, [fetchProduct]);
   
   //fetchProduct → llamada a Django
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback( async () => {
     try {
       setLoading(true);
       const response = await api.get(`/productos/${id}/`); //trae datos del producto
@@ -35,7 +35,7 @@ const ProductDetailPage = () => {
     } finally {
       setLoading(false); //apaga el loading:
     }
-  };
+  }, [id, navigate]);
 
   //Agregar al carrito. Esto es igual que ProductCard PERO ahora con cantidad.
   const handleAddToCart = () => {

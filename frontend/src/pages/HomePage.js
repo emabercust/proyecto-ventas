@@ -39,7 +39,7 @@ const HomePage = () => {
   };
 
   
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback (async () => {
     try {
       setLoading(true);//activa el estado de carga
       // Parámetros opcionales (Django los puede ignorar por ahora)
@@ -56,7 +56,7 @@ const HomePage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  },[selectedCategory, searchQuery]);
 
   return (
     <div className="min-h-screen bg-background">

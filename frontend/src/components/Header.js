@@ -11,9 +11,6 @@ import {useAuth} from "../context/AuthContext";
 
 import { motion } from 'framer-motion'; //Permite animar componentes React. Usado solo para la entrada del Header.
 
-import {useContext} from "react";
-import {AuthContext} from "../context/AuthContext";
-
 const Header = () => { //Componente funcional de React. Siempre con mayúscula, porque React lo reconoce como componente.
 
   const {user, logout} = useAuth(); //recupero y guardo el usuario en user, y manejar logout

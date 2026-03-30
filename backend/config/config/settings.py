@@ -57,7 +57,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = [
+    "https://proyecto-ventas-a4an3lo14-bercust.vercel.app"
+]
 
 ROOT_URLCONF = 'config.urls'
 

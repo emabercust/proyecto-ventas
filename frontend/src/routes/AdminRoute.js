@@ -10,7 +10,7 @@ const AdminRoute = ({ children }) => {
 
   //no logeado
   if (!user) {
-    resturn <Navigate to="/admin/login" />
+    return <Navigate to="/admin/login" />
   }
 
   //no es admin

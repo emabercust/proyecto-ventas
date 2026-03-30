@@ -10,7 +10,6 @@ import {useAuth} from "../context/AuthContext";
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const {user, logout} = useAuth()
 
   useEffect(() => {

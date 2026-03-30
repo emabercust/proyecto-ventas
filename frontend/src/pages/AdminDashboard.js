@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     //verifica si hay usuario
     if (!user){
-      navigate ("/admin/login");
+      navigate ("/admin/login"); 
       return;
     }
 

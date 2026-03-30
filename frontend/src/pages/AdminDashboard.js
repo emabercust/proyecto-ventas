@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Package, Grid3x3, LogOut, ShoppingBag } from 'lucide-react';
 import ProductsAdmin from '../components/admin/ProductsAdmin';
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
     }
 
     //verifica si es admin
-    if (user.role != "admin"){
+    if (user.role !== "admin"){
       navigate ("/");
     }
   }, [user, navigate]);

@@ -5,33 +5,34 @@ import ProductsAdmin from '../components/admin/ProductsAdmin';
 import CategoriesAdmin from '../components/admin/CategoriesAdmin';
 import OrdersAdmin from '../components/admin/OrdersAdmin';
 
+import {useAuth} from "../context/AuthContext";
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const {user, logout} = useAuth()
 
   useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('admin_token');
-      if (!token) {
-        navigate('/admin/login/');
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(true);
-      }
-    };
-    
-    // Small delay to ensure token is saved
-    const timer = setTimeout(checkAuth, 100);
-    return () => clearTimeout(timer);
-  }, [navigate]);
+    //verifica si hay usuario
+    if (!user){
+      navigate ("/admin/login");
+      return;
+    }
+
+    //verifica si es admin
+    if (user.role != "admin"){
+      navigate ("/");
+    }
+  }, [user, navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem('admin_token');
+    logout(); //limpia token + user
     navigate('/admin/login/');
   };
 
-  if (isAuthenticated === null || isAuthenticated === false) {
+  //evita render mientras valida
+  if (!user || user.role !== "admin") {
     return null;
   }
 

@@ -89,6 +89,7 @@ const ProductsAdmin = () => {
         });
         toast.success('Producto actualizado');
       } else {
+        console.log("este es el TOKEN:", localStorage.getItem("token"));
         await api.post('/productos/', submitData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });

@@ -22,6 +22,8 @@ from productos.views import ProductoViewSet, CategoriaViewSet,PedidoViewSet, Eje
 #para usar media
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
+from django.urls import re_path
 
 router = DefaultRouter()
 router.register(r'productos', ProductoViewSet)
@@ -38,5 +40,10 @@ urlpatterns = [
     path('api/auth/', include('users.urls')),
 ]
 
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT
+    }),
+]
 #Esto permite que Django muestre las imágenes.
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

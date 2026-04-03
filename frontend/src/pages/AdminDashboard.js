@@ -36,7 +36,7 @@ const AdminDashboard = () => {
   }
 
   const menuItems = [
-    { path: '/admin/products', label: 'Productosfff', icon: Package },
+    { path: '/admin/products', label: 'Productos', icon: Package },
     { path: '/admin/categories', label: 'Categorías', icon: Grid3x3 },
    { path: '/admin/orders', label: 'Pedidos', icon: ShoppingBag }
   ];

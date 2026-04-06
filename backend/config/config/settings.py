@@ -14,6 +14,17 @@ from pathlib import Path
 from datetime import timedelta
 import dj_database_url
 
+import cloudinary
+
+cloudinary.config(
+    cloud_name="dflg3dhdv",
+    api_key="345299355761194",
+    api_secret="0qKd31GW2SbAXRD_pwryWROkNAU",
+)
+
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -88,23 +99,29 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
-    #'default': {
-         
-       # 'ENGINE': 'django.db.backends.postgresql',
-       #'NAME': 'ventas_db',
-       # 'USER': 'ventas_user',
-       #  'PASSWORD': '1234',
-       #  'HOST': 'localhost',
-       #  'PORT': '5432',
-    #}
-}
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
+if DATABASE_URL:
+    # 🌍 PRODUCCIÓN (Render)
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+else:
+    # 💻 LOCAL (tu PC)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'ventas_db',
+            'USER': 'ventas_user',
+            'PASSWORD': '1234',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

@@ -63,6 +63,7 @@ def login(request):
      #backend debe enviar el token, usuario y rol en el login.
      return Response({
         "access_token": str(refresh.access_token),
+         "refresh_token": str(refresh),
         "user":{
             "username": user.username,
             "email": user.email,

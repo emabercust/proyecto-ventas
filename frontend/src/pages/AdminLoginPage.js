@@ -37,7 +37,7 @@ const AdminLoginPage = () => {
           //guarda usuario completo para mostrar "hola juan"
           // Guardar token, sirve tanto para admin como cliente.
            
-          login(response.data.user, response.data.access_token);
+          login(response.data.user, response.data.access_token, response.data.refresh_token);
            
           if (response.data.user.role ==="admin") {
             navigate('/admin/*'); // AdminDashboard

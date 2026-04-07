@@ -23,9 +23,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // login
-  const login = (userData, token) => {
+  const login = (userData, token, refreshToken) => {
     // Guardar token, sirve tanto para admin como cliente.
     localStorage.setItem("token", token);
+    //Guardo refresh
+    localStorage.setItem("refresh_token", refreshToken)
     //guarda usuario completo para mostrar "hola juan"    
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);

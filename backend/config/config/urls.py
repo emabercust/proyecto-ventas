@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import TokenRefreshView
+
 from productos.views import ProductoViewSet, CategoriaViewSet,PedidoViewSet, EjemploViewSet
 
 #para usar media
@@ -44,6 +46,8 @@ urlpatterns += [
     re_path(r'^media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT
     }),
+
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 #Esto permite que Django muestre las imágenes.
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

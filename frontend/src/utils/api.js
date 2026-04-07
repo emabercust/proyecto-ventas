@@ -34,11 +34,40 @@ api.interceptors.request.use(
 //Así cuando el token expire: usuario → login automáticamente
 api.interceptors.response.use(
   response => response,
-  error => {
+  async (error) => {
+    const originalRequest = error.config;
 
-    if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      return <Navigate to="/" />;
+    // si el token expiró
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      const refreshToken = localStorage.getItem("refresh_token");
+
+      if (!refreshToken) {
+        window.location.href = "/admin/login";
+        return Promise.reject(error);
+      }
+
+      try {
+        const res = await axios.post(
+          `${BACKEND_URL}/api/token/refresh/`,
+          { refresh: refreshToken }
+        );
+
+        const newAccessToken = res.data.access;
+
+        localStorage.setItem("token", newAccessToken);
+
+        // actualizar header
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+        return api(originalRequest);
+
+      } catch (err) {
+        // refresh falló → logout
+        localStorage.clear();
+        window.location.href = "/admin/login";
+      }
     }
 
     return Promise.reject(error);

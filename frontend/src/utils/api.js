@@ -56,6 +56,7 @@ api.interceptors.response.use(
 
         const newAccessToken = res.data.access;
 
+        //Guardar nuevo token
         localStorage.setItem("token", newAccessToken);
 
         // actualizar header

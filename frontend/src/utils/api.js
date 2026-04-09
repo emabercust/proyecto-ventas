@@ -3,8 +3,6 @@
 //Authorization: Bearer TOKEN
 
 import axios from 'axios';
-import { Navigate } from "react-router-dom";
-
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API_URL = `${BACKEND_URL}/api`;
 

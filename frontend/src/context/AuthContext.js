@@ -23,21 +23,18 @@ export const AuthProvider = ({ children }) => {
 
     // ❌ si falta algo → logout
     if (!storedUser || !token || !refreshToken) {
-      logout();
+      setUser(null);
       return;
     }
-
-    // ❌ si token expiró → NO logout inmediato
-    // dejamos que el interceptor lo renueve
-    if (isTokenExpired(token)) {
-      try {
-       setUser(JSON.parse(storedUser));
-      } catch (error) {
-       console.error("Error parsing user", error);
-       logout();
-      }
-      return;
-    }
+    // si token válido
+    try {
+      setUser(JSON.parse(storedUser));
+    } catch (error) {
+      console.error("Error parsing user", error);
+      setUser(null);
+     }
+     return;
+    
   }, []);
 
   // login
@@ -57,11 +54,15 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
 
     // detectar si estaba en admin o no
-    if (window.location.pathname.startsWith("/admin")) {
+    const isAdminRoute = window.location.pathname.startsWith("/admin");
+
+   if (isAdminRoute && window.location.pathname !== "/admin/login") {
      window.location.href = "/admin/login";
-    } else {
+   }
+
+   if (!isAdminRoute && window.location.pathname !== "/") {
      window.location.href = "/";
-    }
+   }
   };
 
   return (

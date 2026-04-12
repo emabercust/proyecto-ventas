@@ -6,6 +6,8 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API_URL = `${BACKEND_URL}/api`;
 
+let isRefreshing = false;
+
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -36,7 +38,8 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     // si el token expiró
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry && !isRefreshing) {
+      isRefreshing = true ;
       originalRequest._retry = true;
 
       const refreshToken = localStorage.getItem("refresh_token");
@@ -58,17 +61,21 @@ api.interceptors.response.use(
         localStorage.setItem("token", newAccessToken);
 
         // actualizar header
-        api.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return api(originalRequest);
 
       } catch (err) {
-         localStorage.clear();
+         localStorage.removeItem("token");
+         localStorage.removeItem("refresh_token");
+         localStorage.removeItem("user");
 
          if (window.location.pathname.startsWith("/admin")) {
            window.location.href = "/admin/login";
          } else {
            window.location.href = "/";
          }
+      } finally{
+        isRefreshing= false;
       }
     }
 

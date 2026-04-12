@@ -5,16 +5,6 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  //función para validar expiración del token
-  const isTokenExpired = (token) => {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      return payload.exp * 1000 < Date.now();
-    } catch {
-      return true;
-    }
-  };
-
   //cargar sesión al iniciar app (recupero el usuario guardado al momento de hacer login)
   useEffect(() => {
     const storedUser = localStorage.getItem("user");

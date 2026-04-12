@@ -58,14 +58,17 @@ api.interceptors.response.use(
         localStorage.setItem("token", newAccessToken);
 
         // actualizar header
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
+        api.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
         return api(originalRequest);
 
       } catch (err) {
-        // refresh falló → logout
-        localStorage.clear();
-        window.location.href = "/admin/login";
+         localStorage.clear();
+
+         if (window.location.pathname.startsWith("/admin")) {
+           window.location.href = "/admin/login";
+         } else {
+           window.location.href = "/";
+         }
       }
     }
 

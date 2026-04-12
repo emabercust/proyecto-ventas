@@ -3,22 +3,41 @@ import { createContext, useState, useEffect, useContext } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
   const [user, setUser] = useState(null);
 
-  // cargar usuario guardado (recupero el usuario guardado al momento de hacer login)
+  //función para validar expiración del token
+  const isTokenExpired = (token) => {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.exp * 1000 < Date.now();
+    } catch {
+      return true;
+    }
+  };
+
+  //cargar sesión al iniciar app (recupero el usuario guardado al momento de hacer login)
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    
-    //evita que pase esto cuando no hay usuario guardado: JSONparse(undefined O null)
-    if (storedUser && storedUser !== "undefined") {
-      //try/catch protege si el JSON está corrupto
-      try{
-        setUser(JSON.parse(storedUser));
-      } catch (error){
-        console.error("Error parsing user", error);
-        localStorage.removeItem("user");
-      }
+    const token = localStorage.getItem("token");
+    const refreshToken = localStorage.getItem("refresh_token");
+
+    // ❌ si falta algo → logout
+    if (!storedUser || !token || !refreshToken) {
+      logout();
+      return;
+    }
+
+    // ❌ si token expiró → limpiar
+    if (isTokenExpired(token)) {
+      logout();
+      return;
+    }
+    //try/catch protege si el JSON está corrupto
+    try{
+      setUser(JSON.parse(storedUser));
+    } catch (error) {
+      console.error("Error parsing user", error);
+      logout();
     }
   }, []);
 
@@ -35,9 +54,10 @@ export const AuthProvider = ({ children }) => {
 
   // logout
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.clear();
     setUser(null);
+
+    window.location.href= "/admin/login";
   };
 
   return (

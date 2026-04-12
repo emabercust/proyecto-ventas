@@ -27,17 +27,16 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    // ❌ si token expiró → limpiar
+    // ❌ si token expiró → NO logout inmediato
+    // dejamos que el interceptor lo renueve
     if (isTokenExpired(token)) {
-      logout();
+      try {
+       setUser(JSON.parse(storedUser));
+      } catch (error) {
+       console.error("Error parsing user", error);
+       logout();
+      }
       return;
-    }
-    //try/catch protege si el JSON está corrupto
-    try{
-      setUser(JSON.parse(storedUser));
-    } catch (error) {
-      console.error("Error parsing user", error);
-      logout();
     }
   }, []);
 
@@ -57,7 +56,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.clear();
     setUser(null);
 
-    window.location.href= "/admin/login";
+    // detectar si estaba en admin o no
+    if (window.location.pathname.startsWith("/admin")) {
+     window.location.href = "/admin/login";
+    } else {
+     window.location.href = "/";
+    }
   };
 
   return (

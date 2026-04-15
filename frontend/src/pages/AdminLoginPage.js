@@ -67,8 +67,8 @@ const AdminLoginPage = () => {
         className="w-full max-w-md"
       >
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-normal tracking-tight mb-2">Panel de Administración</h1>
-          <p className="text-muted-foreground">Gestiona tu tienda</p>
+          <h1 className="text-4xl font-normal tracking-tight mb-2"> Iniciar Sesión </h1>
+          <p className="text-muted-foreground">Ingresa a la tienda y elije los mejores productos que tenemos para ti</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">

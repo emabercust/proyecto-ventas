@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
+
 # Create your models here.
 # model solo define la tabla.
 
@@ -34,7 +36,7 @@ class Producto(models.Model):
     #null=True: Permite que la base de datos acepte NULL.
     #upload_to: Define la carpeta donde se guardan: media/productos/ 
     #Ejemplo real: media/productos/laptop.jpg
-    imagen = models.ImageField(upload_to="productos/", null=True, blank=True)
+    from cloudinary.models import CloudinaryField
     def __str__(self):
         return self.nombre
 

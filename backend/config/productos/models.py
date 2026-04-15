@@ -36,7 +36,7 @@ class Producto(models.Model):
     #null=True: Permite que la base de datos acepte NULL.
     #upload_to: Define la carpeta donde se guardan: media/productos/ 
     #Ejemplo real: media/productos/laptop.jpg
-    from cloudinary.models import CloudinaryField
+    imagen = CloudinaryField('image')
     def __str__(self):
         return self.nombre
 

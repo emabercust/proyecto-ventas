@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+    parser_classes = (MultiPartParser, FormParser)  # 🔥 IMPORTANTE
     permission_classes = [IsAdminUser]
     def get_permissions(self):
         #GET productos -> publico

@@ -18,7 +18,6 @@ class ProductoViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        print(request.FILES)
         categoria = self.request.query_params.get("categoria_id")
         search = self.request.query_params.get("search")  
     

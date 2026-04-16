@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from .models import Producto, Categoria, Pedido, Ejemplo
 from .serializers import ProductoSerializer, CategoriaSerializer, PedidoSerializer, EjemploSerializer
 from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()

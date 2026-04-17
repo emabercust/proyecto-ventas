@@ -7,7 +7,9 @@ class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = '__all__'
-
+    def get_imagen(self, obj):
+        return obj.imagen.url if obj.imagen else None
+    
 class CategoriaSerializer(serializers.ModelSerializer):
     
     #Cuenta cuantos productos hay en la categoría.

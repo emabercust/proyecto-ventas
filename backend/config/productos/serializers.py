@@ -8,7 +8,10 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = Producto
         fields = '__all__'
     def get_imagen(self, obj):
-        return obj.imagen.url if obj.imagen else None
+        if obj.imagen:
+            #imagenes mas livianas
+            return obj.imagen.url.replace("/upload/", "/upload/w_400,h_400,c_fill,q_auto/")
+        return None #si no hay imagen devuelvo none
     
 class CategoriaSerializer(serializers.ModelSerializer):
     

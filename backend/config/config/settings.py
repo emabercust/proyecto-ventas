@@ -18,8 +18,8 @@ import cloudinary
 
 cloudinary.config(
     cloud_name="dflg3dhdv",
-    api_key="386329144796344",
-    api_secret="puGiUbmUTO8ybjFM6CpF8K-5qUE",
+    api_key="345299355761194",
+    api_secret="0qKd31GW2SbAXRD_pwryWROkNAU",
 )
 
 

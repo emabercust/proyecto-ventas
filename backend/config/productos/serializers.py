@@ -8,14 +8,13 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = Producto
         fields = '__all__'
     def get_imagen(self, obj):
-        
-    if obj.imagen:
-        url, _ = cloudinary.utils.cloudinary_url(
-            obj.imagen.public_id,
-            width=400,
-            height=400,
-            crop="fill",
-            quality="auto"
+       if obj.imagen:
+          url, _ = cloudinary.utils.cloudinary_url(
+             obj.imagen.public_id,
+             width=400,
+             height=400,
+             crop="fill",
+             quality="auto"
         )
         return url
     return None

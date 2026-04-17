@@ -4,6 +4,8 @@ from rest_framework import serializers
 import cloudinary.utils
 
 class ProductoSerializer(serializers.ModelSerializer):
+    imagen = serializers.SerializerMethodField()
+
     class Meta:
         model = Producto
         fields = '__all__'

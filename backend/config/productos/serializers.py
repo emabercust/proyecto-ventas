@@ -15,9 +15,9 @@ class ProductoSerializer(serializers.ModelSerializer):
              height=400,
              crop="fill",
              quality="auto"
-        )
-        return url
-    return None
+          )
+          return url
+       return None
     
 class CategoriaSerializer(serializers.ModelSerializer):
     

@@ -13,6 +13,7 @@ class ProductoViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         #GET productos -> publico
         if self.request.method == "GET":
+            print("FILES de cloudinary:", self.request.FILES)
            return [AllowAny()]
 
         ##POST, PUT, DELETE producto -> admin

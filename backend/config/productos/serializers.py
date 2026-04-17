@@ -7,6 +7,7 @@ class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = '__all__'
+        
     def get_imagen(self, obj):
        if obj.imagen:
           url, _ = cloudinary.utils.cloudinary_url(

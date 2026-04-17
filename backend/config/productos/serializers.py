@@ -1,17 +1,24 @@
 from rest_framework import serializers
 from .models import Producto, Categoria, Pedido, PedidoItem, Ejemplo
 from rest_framework import serializers
-
+import cloudinary.utils
 
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = '__all__'
     def get_imagen(self, obj):
-        if obj.imagen:
-            #imagenes mas livianas
-            return obj.imagen.url.replace("/upload/", "/upload/w_400,h_400,c_fill,q_auto/")
-        return None #si no hay imagen devuelvo none
+        
+    if obj.imagen:
+        url, _ = cloudinary.utils.cloudinary_url(
+            obj.imagen.public_id,
+            width=400,
+            height=400,
+            crop="fill",
+            quality="auto"
+        )
+        return url
+    return None
     
 class CategoriaSerializer(serializers.ModelSerializer):
     

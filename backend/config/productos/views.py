@@ -9,12 +9,11 @@ class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
     parser_classes = (MultiPartParser, FormParser)  # 🔥 IMPORTANTE
-    permission_classes = [IsAdminUser]
+ #  permission_classes = [IsAdminUser]
     def get_permissions(self):
         #GET productos -> publico
         if self.request.method == "GET":
            return [AllowAny()]
-        print("FILES de cloudinary:", self.request.FILES)
 
         ##POST, PUT, DELETE producto -> admin
         return [IsAdminUser()]
@@ -30,7 +29,11 @@ class ProductoViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(nombre__icontains=search)
     
         return queryset
-    
+
+    #SOLO PARA DEBUG 
+    def create(self, request, *args, **kwargs):
+        print("FILES:", request.FILES)
+        return super().create(request, *args, **kwargs)
 
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
